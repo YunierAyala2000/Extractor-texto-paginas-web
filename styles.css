@@ -93,7 +93,7 @@ header code {
 
 .fields-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 16px;
 }
 
@@ -251,7 +251,7 @@ textarea:focus {
 }
 
 /* ── Responsive ── */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .card {
     padding: 28px 20px;
   }

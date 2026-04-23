@@ -36,6 +36,10 @@ async function fetchConProxy(url) {
 
 async function extraerTexto() {
   const url = document.getElementById("urlInput").value.trim();
+  const etiqueta = document
+    .getElementById("etiquetaInput")
+    .value.trim()
+    .toLowerCase();
   const clase = document.getElementById("claseInput").value.trim();
   const selector = document.getElementById("selectorInput").value.trim();
 
@@ -58,7 +62,24 @@ async function extraerTexto() {
     // Obtener texto según clase, selector avanzado, o el body completo
     let texto = "";
 
-    if (clase) {
+    if (etiqueta) {
+      // Validar que sea un nombre de etiqueta simple (solo letras y números)
+      if (!/^[a-z][a-z0-9]*$/i.test(etiqueta)) {
+        alert(`"${etiqueta}" no es un nombre de etiqueta HTML válido.`);
+        return;
+      }
+      const elementos = doc.querySelectorAll(etiqueta);
+      if (elementos.length === 0) {
+        alert(`No se encontró ningún elemento <${etiqueta}> en la página.`);
+        return;
+      }
+      texto = Array.from(elementos)
+        .map((el) =>
+          (el.innerText || el.textContent).replace(/\s+/g, " ").trim(),
+        )
+        .filter((t) => t.length > 0)
+        .join("\n\n");
+    } else if (clase) {
       // Buscar TODOS los elementos con esa clase
       const elementos = doc.querySelectorAll(`.${clase}`);
       if (elementos.length === 0) {
