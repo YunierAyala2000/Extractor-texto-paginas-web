@@ -44,7 +44,7 @@ async function extraerTexto() {
     return;
   }
 
-  const btn = document.querySelector("button");
+  const btn = document.querySelector(".btn-primary");
   btn.textContent = "Extrayendo...";
   btn.disabled = true;
 
@@ -93,7 +93,7 @@ async function extraerTexto() {
       "No se pudo obtener el contenido. Todos los proxies fallaron o la URL no es accesible.",
     );
   } finally {
-    btn.textContent = "Extraer";
+    btn.textContent = "Extraer texto";
     btn.disabled = false;
   }
 }

@@ -2,25 +2,58 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Extractor de Texto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>Extractor de texto de una URL</h1>
+    <div class="card">
+      <header>
+        <div class="logo">&#x1F4C4;</div>
+        <h1>Extractor de Texto</h1>
+        <p>Obtén el texto visible de cualquier página web y descárgalo como <code>.txt</code></p>
+      </header>
 
-    <input type="text" id="urlInput" placeholder="https://ejemplo.com" />
-    <input type="text" id="claseInput" placeholder="Clase CSS (ej: article-body, title) — extrae todos los elementos" />
-    <input type="text" id="selectorInput" placeholder="Selector avanzado opcional: #id, .clase, etiqueta" />
-    <button onclick="extraerTexto()">Extraer</button>
+      <div class="field">
+        <label for="urlInput">URL de la página</label>
+        <input type="text" id="urlInput" placeholder="https://ejemplo.com" autocomplete="off" spellcheck="false" />
+      </div>
 
-    <textarea
-      id="resultado"
-      rows="15"
-      placeholder="Aquí aparecerá el texto..."
-    ></textarea>
+      <hr class="divider" />
+      <p class="section-label">Filtros opcionales</p>
 
-    <br />
-    <button onclick="descargarTexto()">Descargar TXT</button>
+      <div class="fields-row">
+        <div class="field">
+          <label for="claseInput">Clase CSS</label>
+          <input type="text" id="claseInput" placeholder="ej: article-body, post-title" autocomplete="off" spellcheck="false" />
+        </div>
+        <div class="field">
+          <label for="selectorInput">Selector avanzado</label>
+          <input type="text" id="selectorInput" placeholder="ej: #main, .content, article" autocomplete="off" spellcheck="false" />
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn-primary" onclick="extraerTexto()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zm.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/></svg>
+          Extraer texto
+        </button>
+      </div>
+
+      <div class="output-section">
+        <div class="output-header">
+          <span>Resultado</span>
+          <button class="btn-secondary" onclick="descargarTexto()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+            Descargar .txt
+          </button>
+        </div>
+        <textarea id="resultado" rows="15" placeholder="Aquí aparecerá el texto extraído..."></textarea>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
