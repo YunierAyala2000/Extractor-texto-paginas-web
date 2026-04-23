@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Extractor de Texto</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Extractor de texto de una URL</h1>
+
+    <input type="text" id="urlInput" placeholder="https://ejemplo.com" />
+    <input type="text" id="claseInput" placeholder="Clase CSS (ej: article-body, title) — extrae todos los elementos" />
+    <input type="text" id="selectorInput" placeholder="Selector avanzado opcional: #id, .clase, etiqueta" />
+    <button onclick="extraerTexto()">Extraer</button>
+
+    <textarea
+      id="resultado"
+      rows="15"
+      placeholder="Aquí aparecerá el texto..."
+    ></textarea>
+
+    <br />
+    <button onclick="descargarTexto()">Descargar TXT</button>
+
+    <script src="script.js"></script>
+  </body>
+</html>
