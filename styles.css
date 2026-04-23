@@ -288,6 +288,39 @@ textarea:focus {
   box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
+/* ── Lang switcher ── */
+.lang-switcher {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.lang-btn {
+  padding: 4px 10px;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.lang-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.lang-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
 /* ── Sidebar Footer ── */
 .sidebar-footer {
   margin-top: auto;

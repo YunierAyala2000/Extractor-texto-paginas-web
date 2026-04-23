@@ -1,3 +1,101 @@
+const LANGS = {
+  es: {
+    title: "Extractor de Texto",
+    subtitle: "Obtén el texto visible de cualquier página web",
+    urlLabel: "URL de la página",
+    urlPlaceholder: "https://ejemplo.com",
+    optionalFilters: "Filtros opcionales",
+    tagLabel: "Etiqueta HTML",
+    tagPlaceholder: "ej: p, h1, span, li",
+    classLabel: "Clase CSS",
+    classPlaceholder: "ej: article-body, post-title",
+    selectorLabel: "Selector avanzado",
+    selectorPlaceholder: "ej: #main, .content, article",
+    extractBtn: "Extraer texto",
+    extracting: "Extrayendo...",
+    resultLabel: "Resultado",
+    copyBtn: "Copiar",
+    copied: "¡Copiado!",
+    downloadBtn: "Descargar .txt",
+    resultPlaceholder: "Aquí aparecerá el texto extraído...",
+    devBy: "Desarrollado por",
+    alertUrl: "Ingresa una URL válida",
+    alertInvalidTag: (t) => `"${t}" no es un nombre de etiqueta HTML válido.`,
+    alertTagNotFound: (t) =>
+      `No se encontró ningún elemento <${t}> en la página.`,
+    alertClassNotFound: (c) =>
+      `No se encontró ningún elemento con la clase "${c}"`,
+    alertSelectorNotFound: (s) =>
+      `No se encontró ningún elemento con el selector "${s}"`,
+    alertProxyFail:
+      "No se pudo obtener el contenido. Todos los proxies fallaron o la URL no es accesible.",
+    alertNoCopy: "No hay texto para copiar. Extrae primero el contenido.",
+    alertNoDownload: "No hay texto para descargar",
+  },
+  en: {
+    title: "Text Extractor",
+    subtitle: "Get the visible text from any web page",
+    urlLabel: "Page URL",
+    urlPlaceholder: "https://example.com",
+    optionalFilters: "Optional filters",
+    tagLabel: "HTML Tag",
+    tagPlaceholder: "e.g.: p, h1, span, li",
+    classLabel: "CSS Class",
+    classPlaceholder: "e.g.: article-body, post-title",
+    selectorLabel: "Advanced selector",
+    selectorPlaceholder: "e.g.: #main, .content, article",
+    extractBtn: "Extract text",
+    extracting: "Extracting...",
+    resultLabel: "Result",
+    copyBtn: "Copy",
+    copied: "Copied!",
+    downloadBtn: "Download .txt",
+    resultPlaceholder: "Extracted text will appear here...",
+    devBy: "Developed by",
+    alertUrl: "Enter a valid URL",
+    alertInvalidTag: (t) => `"${t}" is not a valid HTML tag name.`,
+    alertTagNotFound: (t) => `No <${t}> element was found on the page.`,
+    alertClassNotFound: (c) => `No element with class "${c}" was found`,
+    alertSelectorNotFound: (s) =>
+      `No element matching selector "${s}" was found`,
+    alertProxyFail:
+      "Could not retrieve content. All proxies failed or the URL is not accessible.",
+    alertNoCopy: "No text to copy. Extract content first.",
+    alertNoDownload: "No text to download",
+  },
+};
+
+let currentLang = localStorage.getItem("lang") || "es";
+
+function applyLang(lang) {
+  currentLang = lang;
+  localStorage.setItem("lang", lang);
+  const t = LANGS[lang];
+  document.documentElement.lang = lang;
+  document.title = t.title;
+  document.getElementById("i18n-title").textContent = t.title;
+  document.getElementById("i18n-subtitle").textContent = t.subtitle;
+  document.getElementById("i18n-urlLabel").textContent = t.urlLabel;
+  document.getElementById("i18n-optionalFilters").textContent =
+    t.optionalFilters;
+  document.getElementById("i18n-tagLabel").textContent = t.tagLabel;
+  document.getElementById("i18n-classLabel").textContent = t.classLabel;
+  document.getElementById("i18n-selectorLabel").textContent = t.selectorLabel;
+  document.getElementById("i18n-extractBtn").textContent = t.extractBtn;
+  document.getElementById("i18n-resultLabel").textContent = t.resultLabel;
+  document.getElementById("i18n-copyBtn").textContent = t.copyBtn;
+  document.getElementById("i18n-downloadBtn").textContent = t.downloadBtn;
+  document.getElementById("i18n-devBy").textContent = t.devBy;
+  document.getElementById("urlInput").placeholder = t.urlPlaceholder;
+  document.getElementById("etiquetaInput").placeholder = t.tagPlaceholder;
+  document.getElementById("claseInput").placeholder = t.classPlaceholder;
+  document.getElementById("selectorInput").placeholder = t.selectorPlaceholder;
+  document.getElementById("resultado").placeholder = t.resultPlaceholder;
+  document.querySelectorAll(".lang-btn").forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.lang === lang);
+  });
+}
+
 const PROXIES = [
   {
     buildUrl: (url) => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
@@ -44,12 +142,13 @@ async function extraerTexto() {
   const selector = document.getElementById("selectorInput").value.trim();
 
   if (!url) {
-    alert("Ingresa una URL válida");
+    alert(LANGS[currentLang].alertUrl);
     return;
   }
 
   const btn = document.querySelector(".btn-primary");
-  btn.textContent = "Extrayendo...";
+  document.getElementById("i18n-extractBtn").textContent =
+    LANGS[currentLang].extracting;
   btn.disabled = true;
 
   try {
@@ -65,12 +164,12 @@ async function extraerTexto() {
     if (etiqueta) {
       // Validar que sea un nombre de etiqueta simple (solo letras y números)
       if (!/^[a-z][a-z0-9]*$/i.test(etiqueta)) {
-        alert(`"${etiqueta}" no es un nombre de etiqueta HTML válido.`);
+        alert(LANGS[currentLang].alertInvalidTag(etiqueta));
         return;
       }
       const elementos = doc.querySelectorAll(etiqueta);
       if (elementos.length === 0) {
-        alert(`No se encontró ningún elemento <${etiqueta}> en la página.`);
+        alert(LANGS[currentLang].alertTagNotFound(etiqueta));
         return;
       }
       texto = Array.from(elementos)
@@ -83,7 +182,7 @@ async function extraerTexto() {
       // Buscar TODOS los elementos con esa clase
       const elementos = doc.querySelectorAll(`.${clase}`);
       if (elementos.length === 0) {
-        alert(`No se encontró ningún elemento con la clase "${clase}"`);
+        alert(LANGS[currentLang].alertClassNotFound(clase));
         return;
       }
       texto = Array.from(elementos)
@@ -95,7 +194,7 @@ async function extraerTexto() {
     } else if (selector) {
       const elemento = doc.querySelector(selector);
       if (!elemento) {
-        alert(`No se encontró ningún elemento con el selector "${selector}"`);
+        alert(LANGS[currentLang].alertSelectorNotFound(selector));
         return;
       }
       texto = (elemento.innerText || elemento.textContent)
@@ -112,11 +211,10 @@ async function extraerTexto() {
     document.getElementById("btnDescargarResultado").disabled = !texto;
   } catch (error) {
     console.error(error);
-    alert(
-      "No se pudo obtener el contenido. Todos los proxies fallaron o la URL no es accesible.",
-    );
+    alert(LANGS[currentLang].alertProxyFail);
   } finally {
-    btn.textContent = "Extraer texto";
+    document.getElementById("i18n-extractBtn").textContent =
+      LANGS[currentLang].extractBtn;
     btn.disabled = false;
   }
 }
@@ -125,7 +223,7 @@ function descargarTexto() {
   const texto = document.getElementById("resultado").value;
 
   if (!texto) {
-    alert("No hay texto para descargar");
+    alert(LANGS[currentLang].alertNoDownload);
     return;
   }
 
@@ -144,21 +242,25 @@ async function copiarTexto() {
   const texto = document.getElementById("resultado").value;
 
   if (!texto) {
-    alert("No hay texto para copiar. Extrae primero el contenido.");
+    alert(LANGS[currentLang].alertNoCopy);
     return;
   }
 
   await navigator.clipboard.writeText(texto);
 
   const btn = document.getElementById("btnCopiar");
-  const textoOriginal = btn.innerHTML;
-  btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg> ¡Copiado!`;
+  const span = document.getElementById("i18n-copyBtn");
+  const t = LANGS[currentLang];
+
+  span.textContent = t.copied;
   btn.style.borderColor = "#22c55e";
   btn.style.color = "#22c55e";
 
   setTimeout(() => {
-    btn.innerHTML = textoOriginal;
+    span.textContent = t.copyBtn;
     btn.style.borderColor = "";
     btn.style.color = "";
   }, 2000);
 }
+
+applyLang(currentLang);

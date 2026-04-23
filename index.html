@@ -15,41 +15,45 @@
       <!-- ── Panel izquierdo: controles ── -->
       <aside class="panel-controls">
         <header>
+          <div class="lang-switcher">
+            <button class="lang-btn" data-lang="es" onclick="applyLang('es')">ES</button>
+            <button class="lang-btn" data-lang="en" onclick="applyLang('en')">EN</button>
+          </div>
           <div class="logo">&#x1F4C4;</div>
-          <h1>Extractor de Texto</h1>
-          <p>Obtén el texto visible de cualquier página web</p>
+          <h1 id="i18n-title">Extractor de Texto</h1>
+          <p id="i18n-subtitle">Obtén el texto visible de cualquier página web</p>
         </header>
 
         <div class="field">
-          <label for="urlInput">URL de la página</label>
+          <label for="urlInput" id="i18n-urlLabel">URL de la página</label>
           <input type="text" id="urlInput" placeholder="https://ejemplo.com" autocomplete="off" spellcheck="false" />
         </div>
 
         <hr class="divider" />
-        <p class="section-label">Filtros opcionales</p>
+        <p class="section-label" id="i18n-optionalFilters">Filtros opcionales</p>
 
         <div class="field">
-          <label for="etiquetaInput">Etiqueta HTML</label>
+          <label for="etiquetaInput" id="i18n-tagLabel">Etiqueta HTML</label>
           <input type="text" id="etiquetaInput" placeholder="ej: p, h1, span, li" autocomplete="off" spellcheck="false" value="p" />
         </div>
         <div class="field">
-          <label for="claseInput">Clase CSS</label>
+          <label for="claseInput" id="i18n-classLabel">Clase CSS</label>
           <input type="text" id="claseInput" placeholder="ej: article-body, post-title" autocomplete="off" spellcheck="false" value="dv-post-article" />
         </div>
         <div class="field">
-          <label for="selectorInput">Selector avanzado</label>
+          <label for="selectorInput" id="i18n-selectorLabel">Selector avanzado</label>
           <input type="text" id="selectorInput" placeholder="ej: #main, .content, article" autocomplete="off" spellcheck="false" />
         </div>
 
         <div class="actions">
           <button class="btn-primary" onclick="extraerTexto()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zm.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/></svg>
-            Extraer texto
+            <span id="i18n-extractBtn">Extraer texto</span>
           </button>
         </div>
          <footer class="sidebar-footer">
           <p class="footer-copy">&copy; 2026 Extractor de Texto</p>
-          <p class="footer-dev">Desarrollado por <strong>Junier Ayala Perez</strong></p>
+          <p class="footer-dev"><span id="i18n-devBy">Desarrollado por</span> <strong>Junier Ayala Perez</strong></p>
           <a class="footer-link" href="mailto:ayalaperezyunier@gmail.com">ayalaperezyunier@gmail.com</a>
           <a class="footer-link" href="https://github.com/YunierAyala2000" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -61,15 +65,15 @@
       <!-- ── Panel derecho: resultado ── -->
       <main class="panel-output">
         <div class="output-header">
-          <span>Resultado</span>
+          <span id="i18n-resultLabel">Resultado</span>
           <div class="output-actions">
             <button class="btn-secondary" id="btnCopiar" onclick="copiarTexto()" disabled>
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
-              Copiar
+              <span id="i18n-copyBtn">Copiar</span>
             </button>
             <button class="btn-secondary" id="btnDescargarResultado" onclick="descargarTexto()" disabled>
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
-              Descargar .txt
+              <span id="i18n-downloadBtn">Descargar .txt</span>
             </button>
           </div>
         </div>
