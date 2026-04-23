@@ -1,16 +1,30 @@
 # Extractor de Texto desde una URL
 
-Aplicación web que obtiene el contenido HTML de una URL, extrae su texto visible y permite descargarlo como archivo `.txt`. Funciona completamente en el navegador, sin backend.
+Aplicación web que obtiene el contenido HTML de una URL, extrae su texto visible, permite copiarlo al portapapeles y descargarlo como `.txt`. Funciona completamente en el navegador, sin backend ni instalación.
+
+---
+
+## Autor
+
+Desarrollado por **Junier Ayala Perez**  
+📧 [ayalaperezyunier@gmail.com](mailto:ayalaperezyunier@gmail.com)  
+🐙 [github.com/YunierAyala2000](https://github.com/YunierAyala2000)
 
 ---
 
 ## Características
 
-- Extrae el texto de cualquier URL accesible públicamente
-- Filtra por **clase CSS** para extraer solo una sección específica
-- Soporte de **selector CSS avanzado** (`#id`, `.clase`, `etiqueta`)
-- Reintenta automáticamente con **3 proxies CORS** en cascada si el primero falla
-- Descarga el resultado como archivo `.txt`
+- Layout dividido: panel de controles (30%) + panel de resultado (70%)
+- Filtra por **etiqueta HTML** (`p`, `h1`, `span`, `li`…) — extrae todos los elementos de esa etiqueta
+- Filtra por **clase CSS** — extrae todos los elementos que tengan esa clase
+- Filtra por **selector CSS avanzado** (`#id`, `.clase`, `etiqueta`) — extrae el primer elemento coincidente
+- Sin filtros: extrae todo el texto visible del `<body>`
+- Reintenta con **3 proxies CORS** en cascada (timeout de 8 s por proxy)
+- Botón **Copiar** al portapapeles con feedback visual (verde, 2 s)
+- Botón **Descargar .txt**
+- Botones Copiar y Descargar deshabilitados hasta que haya texto extraído
+- Tema oscuro moderno con tipografía Inter (Google Fonts)
+- Diseño responsive (en móvil los paneles se apilan verticalmente)
 
 ---
 
