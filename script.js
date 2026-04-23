@@ -108,6 +108,8 @@ async function extraerTexto() {
     }
 
     document.getElementById("resultado").value = texto;
+    document.getElementById("btnCopiar").disabled = !texto;
+    document.getElementById("btnDescargarResultado").disabled = !texto;
   } catch (error) {
     console.error(error);
     alert(
@@ -136,4 +138,27 @@ function descargarTexto() {
   a.click();
 
   URL.revokeObjectURL(url);
+}
+
+async function copiarTexto() {
+  const texto = document.getElementById("resultado").value;
+
+  if (!texto) {
+    alert("No hay texto para copiar. Extrae primero el contenido.");
+    return;
+  }
+
+  await navigator.clipboard.writeText(texto);
+
+  const btn = document.getElementById("btnCopiar");
+  const textoOriginal = btn.innerHTML;
+  btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg> ¡Copiado!`;
+  btn.style.borderColor = "#22c55e";
+  btn.style.color = "#22c55e";
+
+  setTimeout(() => {
+    btn.innerHTML = textoOriginal;
+    btn.style.borderColor = "";
+    btn.style.color = "";
+  }, 2000);
 }

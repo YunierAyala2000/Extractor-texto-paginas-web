@@ -226,10 +226,17 @@ input[type="text"]:focus {
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover:not(:disabled) {
   background: var(--accent);
   color: #fff;
   box-shadow: 0 3px 12px rgba(99, 102, 241, 0.3);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-color: var(--border);
+  color: var(--text-muted);
 }
 
 /* ── Output ── */
@@ -247,6 +254,11 @@ input[type="text"]:focus {
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
+}
+
+.output-actions {
+  display: flex;
+  gap: 10px;
 }
 
 textarea {
