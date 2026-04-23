@@ -10,22 +10,24 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="card">
-      <header>
-        <div class="logo">&#x1F4C4;</div>
-        <h1>Extractor de Texto</h1>
-        <p>Obtén el texto visible de cualquier página web y descárgalo como <code>.txt</code></p>
-      </header>
+    <div class="app">
 
-      <div class="field">
-        <label for="urlInput">URL de la página</label>
-        <input type="text" id="urlInput" placeholder="https://ejemplo.com" autocomplete="off" spellcheck="false" />
-      </div>
+      <!-- ── Panel izquierdo: controles ── -->
+      <aside class="panel-controls">
+        <header>
+          <div class="logo">&#x1F4C4;</div>
+          <h1>Extractor<br/>de Texto</h1>
+          <p>Obtén el texto visible de cualquier página web</p>
+        </header>
 
-      <hr class="divider" />
-      <p class="section-label">Filtros opcionales</p>
+        <div class="field">
+          <label for="urlInput">URL de la página</label>
+          <input type="text" id="urlInput" placeholder="https://ejemplo.com" autocomplete="off" spellcheck="false" />
+        </div>
 
-      <div class="fields-row">
+        <hr class="divider" />
+        <p class="section-label">Filtros opcionales</p>
+
         <div class="field">
           <label for="etiquetaInput">Etiqueta HTML</label>
           <input type="text" id="etiquetaInput" placeholder="ej: p, h1, span, li" autocomplete="off" spellcheck="false" value="p" />
@@ -38,16 +40,17 @@
           <label for="selectorInput">Selector avanzado</label>
           <input type="text" id="selectorInput" placeholder="ej: #main, .content, article" autocomplete="off" spellcheck="false" />
         </div>
-      </div>
 
-      <div class="actions">
-        <button class="btn-primary" onclick="extraerTexto()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zm.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/></svg>
-          Extraer texto
-        </button>
-      </div>
+        <div class="actions">
+          <button class="btn-primary" onclick="extraerTexto()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zm.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/></svg>
+            Extraer texto
+          </button>
+        </div>
+      </aside>
 
-      <div class="output-section">
+      <!-- ── Panel derecho: resultado ── -->
+      <main class="panel-output">
         <div class="output-header">
           <span>Resultado</span>
           <button class="btn-secondary" onclick="descargarTexto()">
@@ -55,8 +58,9 @@
             Descargar .txt
           </button>
         </div>
-        <textarea id="resultado" rows="15" placeholder="Aquí aparecerá el texto extraído..."></textarea>
-      </div>
+        <textarea id="resultado" placeholder="Aquí aparecerá el texto extraído..."></textarea>
+      </main>
+
     </div>
 
     <script src="script.js"></script>

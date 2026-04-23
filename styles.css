@@ -30,47 +30,77 @@ body {
   background: var(--bg);
   background-image: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(99, 102, 241, 0.12), transparent);
   color: var(--text);
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 48px 16px 80px;
 }
 
-/* ── Card ── */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+/* ── App layout ── */
+.app {
+  display: flex;
   width: 100%;
-  max-width: 780px;
-  padding: 44px 48px;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Panel izquierdo: controles (30%) ── */
+.panel-controls {
+  width: 30%;
+  min-width: 260px;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 36px 28px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.panel-controls::-webkit-scrollbar {
+  width: 5px;
+}
+.panel-controls::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+/* ── Panel derecho: resultado (70%) ── */
+.panel-output {
+  flex: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 36px 40px 40px;
+  background: var(--bg);
 }
 
 /* ── Header ── */
 header {
   text-align: center;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
 }
 
 .logo {
-  font-size: 2.4rem;
-  margin-bottom: 12px;
+  font-size: 2rem;
+  margin-bottom: 10px;
   line-height: 1;
 }
 
 header h1 {
-  font-size: 1.9rem;
+  font-size: 1.45rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--text);
+  line-height: 1.2;
 }
 
 header p {
   margin-top: 8px;
   color: var(--text-muted);
-  font-size: 0.92rem;
+  font-size: 0.82rem;
   line-height: 1.5;
 }
 
@@ -89,12 +119,6 @@ header code {
   flex-direction: column;
   gap: 7px;
   margin-bottom: 16px;
-}
-
-.fields-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
 }
 
 label {
@@ -146,7 +170,7 @@ input[type="text"]:focus {
 
 /* ── Buttons ── */
 .actions {
-  margin-top: 28px;
+  margin-top: 24px;
 }
 
 .btn-primary {
@@ -205,15 +229,12 @@ input[type="text"]:focus {
 }
 
 /* ── Output ── */
-.output-section {
-  margin-top: 32px;
-}
-
 .output-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
 }
 
 .output-header > span {
@@ -225,24 +246,25 @@ input[type="text"]:focus {
 }
 
 textarea {
+  flex: 1;
   width: 100%;
-  padding: 16px 18px;
-  background: var(--surface-2);
+  padding: 20px 24px;
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   color: var(--text);
   font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  line-height: 1.65;
-  resize: vertical;
+  font-size: 0.92rem;
+  line-height: 1.75;
+  resize: none;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
-  min-height: 280px;
+  box-shadow: var(--shadow);
 }
 
 textarea::placeholder {
   color: var(--text-muted);
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 textarea:focus {
@@ -251,16 +273,27 @@ textarea:focus {
 }
 
 /* ── Responsive ── */
-@media (max-width: 700px) {
-  .card {
+@media (max-width: 768px) {
+  body {
+    height: auto;
+    overflow: auto;
+  }
+
+  .app {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .panel-controls {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
     padding: 28px 20px;
   }
 
-  .fields-row {
-    grid-template-columns: 1fr;
-  }
-
-  header h1 {
-    font-size: 1.5rem;
+  .panel-output {
+    height: 80vh;
+    padding: 24px 20px;
   }
 }
